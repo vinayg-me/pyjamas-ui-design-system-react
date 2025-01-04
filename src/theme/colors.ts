@@ -1,5 +1,9 @@
+interface ColorValue {
+  [key: string]: string | ColorValue;
+}
+
 // UI Neutral Scale
-const neutral = {
+const neutral: ColorValue = {
   0: '#fff',
   10: '#fbfafd',
   50: '#ececef',
@@ -266,14 +270,6 @@ const brand = {
   }
 }
 
-export const colors = {
-  neutral,
-  ...chromatic,
-  ...themes,
-  viz: visualization,
-  brand,
-}
-
 export const opacity = {
   'light': '0.2',
   'medium': '0.5',
@@ -281,4 +277,12 @@ export const opacity = {
   'alpha': '1',
   'alpha-dark': '0.8',
   'alpha-light': '0.2',
-} 
+}
+
+export const colors: ColorValue = {
+  neutral,
+  ...chromatic,
+  ...themes,
+  viz: visualization,
+  brand,
+}; 
