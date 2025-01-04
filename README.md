@@ -10,6 +10,8 @@ A modern, TypeScript-based React component library for building beautiful portfo
 - 📚 Storybook for component development and documentation
 - ⚡ TSUP for fast bundling
 - 🔍 Fully typed components
+- 🧹 ESLint + Prettier for code quality
+- 🔄 Husky + lint-staged for pre-commit checks
 
 ## Installation
 
@@ -31,26 +33,68 @@ function App() {
 }
 ```
 
-## Development
+## Development Setup
 
 1. Install dependencies:
+
 ```bash
 pnpm install
 ```
 
-2. Start Storybook:
+2. Start Storybook for component development:
+
 ```bash
 pnpm storybook
 ```
 
 3. Build the library:
+
 ```bash
 pnpm build
 ```
 
+4. Run development build with watch mode:
+
+```bash
+pnpm dev
+```
+
+## Code Quality Tools
+
+### ESLint
+
+- Lint your code:
+
+```bash
+pnpm lint
+```
+
+- Fix auto-fixable issues:
+
+```bash
+pnpm lint:fix
+```
+
+### Prettier
+
+- Format your code:
+
+```bash
+pnpm format
+```
+
+### Pre-commit Hooks
+
+We use Husky and lint-staged to ensure code quality:
+
+- ESLint checks and fixes TypeScript/React files
+- Prettier formats all supported files
+- Runs automatically on commit
+
 ## Testing Guidelines
 
 ### Running Tests
+
 ```bash
 # Run all tests
 pnpm test
@@ -63,6 +107,7 @@ pnpm test:coverage
 ```
 
 ### Writing Tests
+
 1. Create test files with `.test.tsx` extension in the `__tests__` directory
 2. Follow the naming convention: `ComponentName.test.tsx`
 3. Include tests for:
@@ -73,6 +118,7 @@ pnpm test:coverage
    - Accessibility features
 
 Example test structure:
+
 ```tsx
 describe('ComponentName', () => {
   it('renders correctly', () => {
@@ -91,61 +137,53 @@ describe('ComponentName', () => {
 
 ## Contributing Guidelines
 
-### Pre-commit Hooks
-This project uses Husky and lint-staged to run quality checks before each commit:
-- ESLint will check and fix code style
-- Prettier will format the code
-- Jest will run tests related to changed files
+### Development Workflow
 
-The checks run automatically when you commit changes. If any check fails:
-1. Review the error messages
-2. Fix the issues
-3. Stage your changes
-4. Try committing again
-
-### Commit Messages
-We follow the Conventional Commits specification:
-- Format: `<type>(<scope>): <description>`
-- Types: feat, fix, docs, style, refactor, test, chore
-- Example: `feat(button): add new variant for primary button`
-
-### Pull Request Process
-1. Create a new branch from `main`:
+1. Fork and clone the repository
+2. Create a new branch:
    ```bash
    git checkout -b feature/your-feature-name
    ```
+3. Make your changes following our standards
+4. Commit your changes (commits will be automatically linted)
+5. Push and submit a Pull Request
 
-2. Make your changes following our coding standards:
-   - Use TypeScript strictly
-   - Follow existing component patterns
-   - Add tests for new features
-   - Update Storybook documentation
+### Commit Convention
 
-3. Submit a Pull Request:
-   - Fill out the PR template completely
-   - Link related issues
-   - Add screenshots for UI changes
-   - Ensure all tests pass
-   - Request review from maintainers
+We follow the Conventional Commits specification:
+
+- Format: `<type>(<scope>): <description>`
+- Types:
+  - `feat`: New feature
+  - `fix`: Bug fix
+  - `docs`: Documentation changes
+  - `style`: Code style changes (formatting, etc.)
+  - `refactor`: Code refactoring
+  - `test`: Adding or updating tests
+  - `chore`: Maintenance tasks
+- Example: `feat(button): add new variant for primary button`
 
 ### Code Style Guidelines
-- Use TypeScript strictly with proper types
+
+- Use TypeScript with strict mode
 - Follow React best practices and hooks guidelines
 - Use Tailwind CSS for styling
 - Keep components focused and modular
 - Document props using JSDoc comments
 - Include Storybook stories for all components
 
-### Quality Checklist
-- [ ] TypeScript types are properly defined
-- [ ] Components are properly tested
+### Pull Request Checklist
+
+Before submitting a PR, ensure:
+
+- [ ] Code follows style guidelines
+- [ ] Tests are added/updated and passing
 - [ ] Storybook stories are added/updated
-- [ ] Documentation is clear and complete
-- [ ] Code follows project style guide
-- [ ] No console errors or warnings
-- [ ] Responsive design is implemented
-- [ ] Accessibility features are included
+- [ ] Documentation is updated
+- [ ] All pre-commit checks pass
+- [ ] Commit messages follow convention
+- [ ] PR description is clear and complete
 
 ## License
 
-MIT 
+MIT
