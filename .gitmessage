@@ -1,0 +1,20 @@
+# <type>(<scope>): <description>
+#
+# [optional body]
+#
+# [optional footer(s)]
+#
+# Types:
+#   feat     (new feature)
+#   fix      (bug fix)
+#   docs     (documentation changes)
+#   style    (formatting, missing semicolons, etc; no code change)
+#   refactor (refactoring production code)
+#   test     (adding tests, refactoring tests)
+#   chore    (updating build tasks, package manager configs, etc)
+#
+# Scope:
+#   Scope is optional and represents the component or area of change
+#   Example: feat(button): add new variant for primary button
+#
+# Note: # lines starting with '#' will be ignored 
