@@ -8,7 +8,7 @@ export default {
   },
 };
 
-const ColorSwatch = ({ color, name, value }) => (
+const ColorSwatch = ({ name, value }) => (
   <div className="flex items-center gap-2 p-2">
     <div 
       className="w-16 h-16 rounded-lg shadow-sm" 
@@ -21,14 +21,42 @@ const ColorSwatch = ({ color, name, value }) => (
   </div>
 );
 
-const ColorScale = ({ title, colors, prefix = '' }) => (
+const ColorScale = ({ title, colors, prefix = '' }) => {
+  // Handle both flat color objects and nested color objects
+  const renderSwatches = (colorObj, parentKey = '') => {
+    return Object.entries(colorObj).map(([key, value]) => {
+      const fullKey = parentKey ? `${parentKey}-${key}` : key;
+      if (typeof value === 'string') {
+        return (
+          <ColorSwatch 
+            key={fullKey} 
+            name={`${prefix}${fullKey}`} 
+            value={value}
+          />
+        );
+      }
+      return null; // Don't recursively render nested objects
+    });
+  };
+
+  return (
+    <div className="mb-8">
+      <h3 className="text-lg font-semibold mb-4">{title}</h3>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {renderSwatches(colors)}
+      </div>
+    </div>
+  );
+};
+
+const BrandColorSection = ({ title, colors, prefix }) => (
   <div className="mb-8">
     <h3 className="text-lg font-semibold mb-4">{title}</h3>
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       {Object.entries(colors).map(([key, value]) => (
         <ColorSwatch 
-          key={key} 
-          name={`${prefix}${key}`} 
+          key={key}
+          name={`${prefix}${key}`}
           value={value}
         />
       ))}
@@ -99,24 +127,43 @@ export const AllColors = () => (
     {/* Brand Colors */}
     <div className="mb-8">
       <h2 className="text-2xl font-bold mb-6">Brand Colors</h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {Object.entries(colors.brand).map(([key, value]) => {
-          if (key !== 'gray') {
-            return (
-              <ColorSwatch 
-                key={key}
-                name={`brand-${key}`}
-                value={value}
-              />
-            );
-          }
-          return null;
-        })}
-      </div>
-      <ColorScale 
-        title="Brand Gray"
+      
+      {/* Base Brand Colors */}
+      <BrandColorSection
+        title="Base"
+        colors={{
+          'white': colors.brand.white,
+          'charcoal': colors.brand.charcoal,
+        }}
+        prefix="brand-"
+      />
+
+      {/* Brand Orange */}
+      <BrandColorSection
+        title="Orange"
+        colors={colors.brand.orange}
+        prefix="brand-orange-"
+      />
+
+      {/* Brand Purple */}
+      <BrandColorSection
+        title="Purple"
+        colors={colors.brand.purple}
+        prefix="brand-purple-"
+      />
+
+      {/* Brand Gray */}
+      <BrandColorSection
+        title="Gray"
         colors={colors.brand.gray}
         prefix="brand-gray-"
+      />
+
+      {/* Brand Pink */}
+      <BrandColorSection
+        title="Pink"
+        colors={colors.brand.pink}
+        prefix="brand-pink-"
       />
     </div>
   </div>
